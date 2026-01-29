@@ -14,14 +14,7 @@ export const MusicProvider = ({ children }) => {
     const [currentSection, setCurrentSection] = useState('welcome')
     const [isPlaying, setIsPlaying] = useState(false)
     const [isMuted, setIsMuted] = useState(false)
-    const audioRefs = useRef({
-        welcome: null,
-        lockscreen: null,
-        unlock: null,
-        hero: null,
-        anniversary: null,
-        footer: null
-    })
+    const audioRef = useRef(null) // Single audio element reference
 
     // Music mapping for each section
     // Music mapping for each section
@@ -35,44 +28,79 @@ export const MusicProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // Stop all audio
-        Object.values(audioRefs.current).forEach(audio => {
-            if (audio) {
-                audio.pause()
-                audio.currentTime = 0
-            }
-        })
+        const audio = audioRef.current
+        if (!audio) return
 
-        // Play current section's music if not muted
-        if (!isMuted && isPlaying && audioRefs.current[currentSection]) {
-            audioRefs.current[currentSection].play().catch(err => {
-                console.log('Audio play failed:', err)
-            })
+        const intendedSrc = musicMap[currentSection]
+
+        // --- SMART PLAYBACK LOGIC ---
+        // 1. Check if the song actually needs to change
+        // We use .getAttribute('src') because .src property resolves to absolute URL
+        // causing mismatch issues. Or we can just check if expected source is included.
+        const currentSrc = audio.getAttribute('src')
+
+        const isSameSong = currentSrc === intendedSrc
+
+        if (!isSameSong) {
+            console.log(`[MusicContext] Changing song from ${currentSrc} to ${intendedSrc}`)
+            audio.src = intendedSrc
+            audio.load() // Ensure new source is loaded
+            if (isPlaying && !isMuted) {
+                audio.play().catch(e => console.error("Play failed after change:", e))
+            }
+        } else {
+            // Song is the same, just ensure play state matches
+            console.log(`[MusicContext] Same song detected (${intendedSrc}). Continuing...`)
+            if (isPlaying && !isMuted && audio.paused) {
+                audio.play().catch(e => console.error("Resume failed:", e))
+            }
         }
+
     }, [currentSection, isPlaying, isMuted])
 
     const togglePlay = () => {
+        const audio = audioRef.current
+        if (isPlaying) {
+            audio?.pause()
+        } else {
+            audio?.play().catch(e => console.error("Toggle play failed:", e))
+        }
         setIsPlaying(!isPlaying)
     }
 
     const play = () => {
-        setIsPlaying(true)
+        if (!isPlaying) {
+            setIsPlaying(true)
+            // The effect will handle the actual .play() call
+        }
     }
 
     const pause = () => {
-        setIsPlaying(false)
+        if (isPlaying) {
+            setIsPlaying(false)
+            audioRef.current?.pause()
+        }
     }
 
     const toggleMute = () => {
+        if (audioRef.current) {
+            audioRef.current.muted = !isMuted
+        }
         setIsMuted(!isMuted)
     }
 
     const changeSection = (section) => {
-        setCurrentSection(section)
+        if (section !== currentSection) {
+            setCurrentSection(section)
+        }
     }
 
-    const registerAudio = (section, audioElement) => {
-        audioRefs.current[section] = audioElement
+    const registerGlobalAudio = (audioElement) => {
+        audioRef.current = audioElement
+        // Set initial volume
+        if (audioElement) {
+            audioElement.volume = 0.5
+        }
     }
 
     return (
@@ -87,7 +115,7 @@ export const MusicProvider = ({ children }) => {
                 pause,
                 toggleMute,
                 changeSection,
-                registerAudio
+                registerGlobalAudio // Updated name
             }}
         >
             {children}

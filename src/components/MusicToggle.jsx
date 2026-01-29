@@ -3,17 +3,12 @@ import { motion } from 'framer-motion'
 import { useMusic } from '../context/MusicContext'
 
 const MusicToggle = () => {
-    const { isPlaying, togglePlay, musicMap, registerAudio, currentSection } = useMusic()
-    const audioRefs = useRef({})
+    const { isPlaying, togglePlay, registerGlobalAudio, currentSection } = useMusic()
 
+    // Register the single audio element
     useEffect(() => {
-        // Register all audio elements with the context
-        Object.keys(audioRefs.current).forEach(section => {
-            if (audioRefs.current[section]) {
-                registerAudio(section, audioRefs.current[section])
-            }
-        })
-    }, [registerAudio])
+        // No need for complex mapping anymore
+    }, [])
 
     // Auto-play music when component mounts (after unlock)
     useEffect(() => {
@@ -21,21 +16,21 @@ const MusicToggle = () => {
             if (!isPlaying) {
                 togglePlay()
             }
-        }, 1000) // Start music 1 second after unlock
+        }, 1000)
 
         return () => clearTimeout(timer)
     }, [])
 
     return (
         <>
-            {/* Audio elements for each section */}
-            {/* Audio elements for each section */}
-            <audio ref={el => audioRefs.current.welcome = el} src={musicMap.welcome} loop preload="auto" onError={(e) => console.error("Audio Load Error (welcome):", musicMap.welcome, e)} />
-            <audio ref={el => audioRefs.current.lockscreen = el} src={musicMap.lockscreen} loop preload="auto" onError={(e) => console.error("Audio Load Error (lockscreen):", musicMap.lockscreen, e)} />
-            <audio ref={el => audioRefs.current.unlock = el} src={musicMap.unlock} preload="auto" onError={(e) => console.error("Audio Load Error (unlock):", musicMap.unlock, e)} />
-            <audio ref={el => audioRefs.current.hero = el} src={musicMap.hero} loop preload="auto" onError={(e) => console.error("Audio Load Error (hero):", musicMap.hero, e)} />
-            <audio ref={el => audioRefs.current.anniversary = el} src={musicMap.anniversary} loop preload="auto" onError={(e) => console.error("Audio Load Error (anniversary):", musicMap.anniversary, e)} />
-            <audio ref={el => audioRefs.current.footer = el} src={musicMap.footer} loop preload="auto" onError={(e) => console.error("Audio Load Error (footer):", musicMap.footer, e)} />
+            {/* SINGLE Global Audio Element */}
+            {/* The src is managed by the Context based on currentSection */}
+            <audio
+                ref={registerGlobalAudio}
+                loop
+                preload="auto"
+                onError={(e) => console.error("Global Audio Error:", e)}
+            />
 
             {/* Floating music toggle button */}
             {/* Floating music toggle button with tooltip */}
