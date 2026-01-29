@@ -2,6 +2,17 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useMusic } from '../context/MusicContext'
 
+const loadingMessages = [
+    "Checking stardust levels... ✨",
+    "Polishing the stars... ⭐",
+    "Wrapping your surprise... 🎁",
+    "Tuning the melodies... 🎵",
+    "Almost time for magic... ⏰",
+    "Thinking of you... ❤️",
+    "Calibrating the cuteness... 🧸",
+    "Preparing the confetti... 🎉"
+]
+
 const LockScreen = ({ onUnlock }) => {
     const targetDate = new Date('2026-01-30T00:00:00+05:30').getTime()
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
@@ -63,16 +74,6 @@ const LockScreen = ({ onUnlock }) => {
 
     // --- Dynamic Messages ---
     const [messageIndex, setMessageIndex] = useState(0)
-    const loadingMessages = [
-        "Checking stardust levels... ✨",
-        "Polishing the stars... ⭐",
-        "Wrapping your surprise... 🎁",
-        "Tuning the melodies... 🎵",
-        "Almost time for magic... ⏰",
-        "Thinking of you... ❤️",
-        "Calibrating the cuteness... 🧸",
-        "Preparing the confetti... 🎉"
-    ]
 
     useEffect(() => {
         const messageTimer = setInterval(() => {
