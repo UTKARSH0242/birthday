@@ -29,24 +29,13 @@ const MusicToggle = () => {
     return (
         <>
             {/* Audio elements for each section */}
-            <audio ref={el => audioRefs.current.welcome = el} loop>
-                <source src={musicMap.welcome} type="audio/mpeg" />
-            </audio>
-            <audio ref={el => audioRefs.current.lockscreen = el} loop>
-                <source src={musicMap.lockscreen} type="audio/mpeg" />
-            </audio>
-            <audio ref={el => audioRefs.current.unlock = el}>
-                <source src={musicMap.unlock} type="audio/mpeg" />
-            </audio>
-            <audio ref={el => audioRefs.current.hero = el} loop>
-                <source src={musicMap.hero} type="audio/mpeg" />
-            </audio>
-            <audio ref={el => audioRefs.current.anniversary = el} loop>
-                <source src={musicMap.anniversary} type="audio/mpeg" />
-            </audio>
-            <audio ref={el => audioRefs.current.footer = el} loop>
-                <source src={musicMap.footer} type="audio/mpeg" />
-            </audio>
+            {/* Audio elements for each section */}
+            <audio ref={el => audioRefs.current.welcome = el} src={musicMap.welcome} loop preload="auto" onError={(e) => console.error("Audio Load Error (welcome):", musicMap.welcome, e)} />
+            <audio ref={el => audioRefs.current.lockscreen = el} src={musicMap.lockscreen} loop preload="auto" onError={(e) => console.error("Audio Load Error (lockscreen):", musicMap.lockscreen, e)} />
+            <audio ref={el => audioRefs.current.unlock = el} src={musicMap.unlock} preload="auto" onError={(e) => console.error("Audio Load Error (unlock):", musicMap.unlock, e)} />
+            <audio ref={el => audioRefs.current.hero = el} src={musicMap.hero} loop preload="auto" onError={(e) => console.error("Audio Load Error (hero):", musicMap.hero, e)} />
+            <audio ref={el => audioRefs.current.anniversary = el} src={musicMap.anniversary} loop preload="auto" onError={(e) => console.error("Audio Load Error (anniversary):", musicMap.anniversary, e)} />
+            <audio ref={el => audioRefs.current.footer = el} src={musicMap.footer} loop preload="auto" onError={(e) => console.error("Audio Load Error (footer):", musicMap.footer, e)} />
 
             {/* Floating music toggle button */}
             {/* Floating music toggle button with tooltip */}
