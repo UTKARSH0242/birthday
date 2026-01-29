@@ -20,7 +20,7 @@ const AnniversarySection = () => {
             date: "Jan 26, 2024",
             description: "Republic Day. Started with chai at GTB Nagar at 9 AM, watched 'Fighter', and shared that magical boat ride at Yamuna Bank. Then came 'Mohabbatein' and a midnight drive where you rested your head on my shoulder... ❤️",
             emoji: "☕",
-            image: "/photos/photo17.jpg",
+            image: `${import.meta.env.BASE_URL}photos/photo17.jpg`,
             imageCaption: "The Sunrise of Us 🌅"
         },
         {

@@ -46,22 +46,22 @@ const HeroSection = () => {
 
     // Photo gallery
     const photos = [
-        '/photos/photo1.jpeg',
-        '/photos/photo2.jpeg',
-        '/photos/photo3.jpeg',
-        '/photos/photo4.jpeg',
-        '/photos/photo5.jpeg',
-        '/photos/photo6.jpeg',
-        '/photos/photo7.jpeg',
-        '/photos/photo8.jpeg',
-        '/photos/photo9.jpeg',
-        '/photos/photo10.jpeg',
-        '/photos/photo11.jpeg',
-        '/photos/photo12.jpeg',
-        '/photos/photo13.jpeg',
-        '/photos/photo14.jpeg',
-        '/photos/photo15.jpeg',
-        '/photos/photo16.jpeg',
+        `${import.meta.env.BASE_URL}photos/photo1.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo2.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo3.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo4.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo5.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo6.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo7.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo8.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo9.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo10.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo11.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo12.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo13.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo14.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo15.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo16.jpeg`,
     ]
 
     const captions = [

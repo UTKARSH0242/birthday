@@ -24,13 +24,14 @@ export const MusicProvider = ({ children }) => {
     })
 
     // Music mapping for each section
+    // Music mapping for each section
     const musicMap = {
-        welcome: '/music/tum-hi-ho.mp3',       // Welcome page - Tum Hi Ho (car song)
-        lockscreen: '/music/tum-hi-ho.mp3',    // Countdown timer music (same as welcome)
-        unlock: '/music/happy-birthday.mp3',   // Happy Birthday song at unlock
-        hero: '/music/daylight.mp3',           // Daylight by Taylor Swift
-        anniversary: '/music/pehli-nazar.mp3', // Pehli Nazar Mein (How it started section)
-        footer: '/music/ghar.mp3'              // Ghar from Jab Harry Met Sejal
+        welcome: `${import.meta.env.BASE_URL}music/tum-hi-ho.mp3`,       // Welcome page - Tum Hi Ho (car song)
+        lockscreen: `${import.meta.env.BASE_URL}music/tum-hi-ho.mp3`,    // Countdown timer music (same as welcome)
+        unlock: `${import.meta.env.BASE_URL}music/happy-birthday.mp3`,   // Happy Birthday song at unlock
+        hero: `${import.meta.env.BASE_URL}music/daylight.mp3`,           // Daylight by Taylor Swift
+        anniversary: `${import.meta.env.BASE_URL}music/pehli-nazar.mp3`, // Pehli Nazar Mein (How it started section)
+        footer: `${import.meta.env.BASE_URL}music/ghar.mp3`              // Ghar from Jab Harry Met Sejal
     }
 
     useEffect(() => {
