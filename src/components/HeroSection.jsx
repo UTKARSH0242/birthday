@@ -46,7 +46,7 @@ const HeroSection = () => {
 
     // Photo gallery
     const photos = [
-        `${import.meta.env.BASE_URL}photos/photo1.jpeg`,
+        `${import.meta.env.BASE_URL}photos/photo17.jpg`,
         `${import.meta.env.BASE_URL}photos/photo2.jpeg`,
         `${import.meta.env.BASE_URL}photos/photo3.jpeg`,
         `${import.meta.env.BASE_URL}photos/photo4.jpeg`,
